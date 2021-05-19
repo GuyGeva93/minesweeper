@@ -1,21 +1,28 @@
 body {
-  border-width: 2px;
+  /* border-width: 2px;
   border-color: black;
-  border-style: solid;
-  margin: auto;
+  border-style: solid; */
   width:900px;
   height:900px;
 }
 
-/* .smiley {
-  
-} */
+.container {
+ max-width: 1200px;
+ margin:auto;
+}
 
 .timer {
   text-align: right;
-  padding:20px;
+  /* padding:20px; */
   font-size: '44sp';
+  margin-right:330px;
+  margin-bottom: 40px;
 }
+
+.smiley {
+  cursor: pointer;
+  display: inline-block;
+} 
 
 .levels {
   margin: 20px;

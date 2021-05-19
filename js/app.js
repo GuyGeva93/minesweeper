@@ -16,6 +16,7 @@ var gGameTimeInterval;
 
 
 function initGame() {
+  gGame = true;
   gSeconds = 0;
   gGameTimeInterval = setInterval(setTime, 1000);
   gBoard = buildBoard();
@@ -95,6 +96,8 @@ function renderBoard(board) {
 }
 
 function cellClicked(elCell, i, j) {
+  if (!gGame) return; //unclickable if game hasn't reset by clicking on the smiley
+
   if (!gBoard[i][j].isMine && !gBoard[i][j].isMarked) {
     elCell.innerText = gBoard[i][j].minesAroundCount;
     gBoard[i][j].isShown = true;
@@ -115,6 +118,8 @@ function checkIfWin() {
 }
 
 function onRightCellClicked(elCell, i, j) {
+  if (!gGame) return; //unclickable if game hasn't reset by clicking on the smiley
+
   if (gBoard[i][j].isMarked) {
     elCell.innerText = ' ';
     gBoard[i][j].isMarked = false;
@@ -135,8 +140,9 @@ function changeSmileyState(smiley) {
 function gameOver() {
   changeSmileyState(GAME_LOSS);
   clearInterval(gGameTimeInterval);
+  gGame = false;
   console.log('Game Over');
-  setTimeout(initGame, 3000);
+
 }
 
 function cellMarked(elCell) {
@@ -157,4 +163,9 @@ function setLevel(btnId) {
     clearInterval(gGameTimeInterval);
     initGame();
   }
+}
+
+function resetGame() {
+  clearInterval(gGameTimeInterval);
+  initGame();
 }
