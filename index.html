@@ -10,9 +10,10 @@
 </head>
 
 <body onload="initGame()">
-  <div class="timer"></div>
-  <!-- <center> -->
+
+
   <div class="container">
+    <div class="timer">0</div>
     <div class="smiley"><span onclick="resetGame()"></span></div>
     <table border="5" cellpadding="10">
       <tbody class="board"></tbody>
@@ -22,12 +23,9 @@
       <button id="level8" onclick="setLevel(id)">Medium</button>
       <button id="level12" onclick="setLevel(id)">Expert</button>
     </div>
+    <div class="footer">© Guy Geva</div>
   </div>
 
-  <div class="footer">
-    © Guy Geva
-  </div>
-  <!-- </center> -->
   <script src="js/app.js"></script>
   <script src="js/utils.js"></script>
 </body>

@@ -1,7 +1,7 @@
 
-//setting the game time
+//rendering the game time
 var secondsLabel = document.querySelector('.timer');
-function setTime() {
+function renderGameTime() {
   ++gSeconds;
   secondsLabel.innerHTML = gSeconds;
 }

@@ -12,13 +12,13 @@ var gLevel = 4;
 var gGame;
 var gSeconds;
 var gGameTimeInterval;
-
+var gSecondsLabel = document.querySelector('.timer');
 
 
 function initGame() {
   gGame = true;
   gSeconds = 0;
-  gGameTimeInterval = setInterval(setTime, 1000);
+  gGameTimeInterval = setInterval(renderGameTime, 1000);
   gBoard = buildBoard();
   renderBoard(gBoard);
   changeSmileyState(GAME_ON);
@@ -112,6 +112,7 @@ function cellClicked(elCell, i, j) {
 
 }
 
+//Winning checks
 function checkIfWin() {
   console.log('checkIfWin()');
   changeSmileyState(GAME_WIN);
@@ -145,11 +146,16 @@ function gameOver() {
 
 }
 
+//TODO
 function cellMarked(elCell) {
 
 }
 
+//Setting game level by user's click
+//Default is 4
 function setLevel(btnId) {
+  if (!gGame) return; //unclickable if game hasn't reset by clicking on the smiley
+
   if (btnId === 'level4') {
     gLevel = 4;
     clearInterval(gGameTimeInterval);
@@ -165,7 +171,14 @@ function setLevel(btnId) {
   }
 }
 
+//When pressing the emoji the game will restart
 function resetGame() {
   clearInterval(gGameTimeInterval);
+  resetGameTime();
   initGame();
+}
+
+//Reset the game time
+function resetGameTime() {
+  gSecondsLabel.innerText = '0';
 }

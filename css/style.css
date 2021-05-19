@@ -1,28 +1,34 @@
-body {
-  /* border-width: 2px;
+/* body {
+   border-width: 2px;
   border-color: black;
-  border-style: solid; */
-  width:900px;
-  height:900px;
-}
+  border-style: solid; 
+   width:900px;
+  height:900px; 
+} */
 
 .container {
- max-width: 1200px;
- margin:auto;
+  margin-top: 80px;
+ display: grid;
+ align-items:center ;
+ justify-content: center;
 }
 
-.timer {
+/* .timer {
   text-align: right;
-  /* padding:20px; */
   font-size: '44sp';
   margin-right:330px;
   margin-bottom: 40px;
-}
+} */
 
 .smiley {
-  cursor: pointer;
   display: inline-block;
 } 
+
+span {
+display:table;
+margin:0 auto;
+cursor: pointer;
+}
 
 .levels {
   margin: 20px;
@@ -34,9 +40,11 @@ button {
 }
 
 table {
-  
   margin-top: 20px;
   background-color: white;
+  border-radius: 4;
+  border-width: 3;
+  border: olive;
 }
 
 .board td {
@@ -54,4 +62,8 @@ table {
   height: 30px;
   text-align: center;
   background-color: grey;
+  }
+
+  .footer {
+    text-align: center;
   }
