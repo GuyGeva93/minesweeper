@@ -181,14 +181,17 @@ function setLevel(btnId) {
   if (btnId === 'level4') {
     gLevel = 4;
     clearInterval(gGameTimeInterval);
+    resetGameTime();
     initGame();
   } else if (btnId === 'level8') {
     gLevel = 8;
     clearInterval(gGameTimeInterval);
+    resetGameTime();
     initGame();
   } else if (btnId === 'level12') {
     gLevel = 12;
     clearInterval(gGameTimeInterval);
+    resetGameTime();
     initGame();
   }
 }
