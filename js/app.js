@@ -13,33 +13,26 @@ var gGame;
 var gSeconds;
 var gGameTimeInterval;
 var gSecondsLabel = document.querySelector('.timer');
+var gFirstClick = false;
 
 
 function initGame() {
   gGame = true;
   gSeconds = 0;
-  gGameTimeInterval = setInterval(renderGameTime, 1000);
+  changeSmileyState(GAME_ON);
   gBoard = buildBoard();
   renderBoard(gBoard);
-  changeSmileyState(GAME_ON);
+
 }
 
 //create game board
 function buildBoard() {
-  var SIZE = 4 //Glevel.SIZE;
+  var emptycells = [];
   var board = [];
   for (var i = 0; i < gLevel; i++) {
     board.push([]);
     for (var j = 0; j < gLevel; j++) {
-      //create manually 2 mines
-      if (i === 1 && j === 1) {
-        board[i][j] = createCell(minesAroundCount = 0, isShown = true, isMine = true, isMarked = false);
-        continue;
-      }
-      if (i === 2 && j === 2) {
-        board[i][j] = createCell(minesAroundCount = 0, isShown = true, isMine = true, isMarked = false);
-        continue;
-      }
+      //getEmptyCells(gBoard);
       //create regular cell
       board[i][j] = createCell();
     }
@@ -52,6 +45,16 @@ function buildBoard() {
   return board;
 }
 
+//create manually 2 mines
+// if (i === 1 && j === 1) {
+//   board[i][j] = createCell(minesAroundCount = 0, isShown = false, isMine = true, isMarked = false);
+//   continue;
+// }
+// if (i === 2 && j === 2) {
+//   board[i][j] = createCell(minesAroundCount = 0, isShown = false, isMine = true, isMarked = false);
+//   continue;
+// }
+
 //cell constructor
 function createCell(minesAroundCount = 0, isShown = false, isMine = false, isMarked = false) {
   var cell = {
@@ -63,6 +66,7 @@ function createCell(minesAroundCount = 0, isShown = false, isMine = false, isMar
   return cell;
 }
 
+//Finding mine neighbors
 function setMinesNegsCount(board, cellI, cellJ) {
   for (var i = cellI - 1; i <= cellI + 1; i++) {
     if (i < 0 || i >= board.length) continue;
@@ -98,6 +102,12 @@ function renderBoard(board) {
 function cellClicked(elCell, i, j) {
   if (!gGame) return; //unclickable if game hasn't reset by clicking on the smiley
 
+  //Waiting for the first click to start the game time
+  if (!gFirstClick) {
+    gGameTimeInterval = setInterval(renderGameTime, 1000);
+    gFirstClick = true;
+  }
+
   if (!gBoard[i][j].isMine && !gBoard[i][j].isMarked) {
     elCell.innerText = gBoard[i][j].minesAroundCount;
     gBoard[i][j].isShown = true;
@@ -114,7 +124,14 @@ function cellClicked(elCell, i, j) {
 
 //Winning checks
 function checkIfWin() {
-  console.log('checkIfWin()');
+  //console.log('checkIfWin()');
+  for (var i = 0; i < gBoard.length; i++) {
+    for (var j = 0; j < gBoard[0].length; j++) {
+      if (!gBoard[i][j].isShown) return;
+    }
+  }
+  //TODO
+  //renderWin();
   changeSmileyState(GAME_WIN);
 }
 
@@ -151,6 +168,11 @@ function cellMarked(elCell) {
 
 }
 
+//TODO
+function renderWin() {
+
+}
+
 //Setting game level by user's click
 //Default is 4
 function setLevel(btnId) {
@@ -175,6 +197,7 @@ function setLevel(btnId) {
 function resetGame() {
   clearInterval(gGameTimeInterval);
   resetGameTime();
+  gFirstClick = false;
   initGame();
 }
 

@@ -14,17 +14,16 @@
 }
 
 /* .timer {
-  text-align: right;
-  font-size: '44sp';
-  margin-right:330px;
-  margin-bottom: 40px;
+ background-color: lightcoral; 
+ width:30px;
+ text-align: center;
 } */
 
 .smiley {
   display: inline-block;
 } 
 
-span {
+.smiley span {
 display:table;
 margin:0 auto;
 cursor: pointer;
