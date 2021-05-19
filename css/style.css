@@ -1,14 +1,20 @@
-.main {
+body {
   border-width: 2px;
   border-color: black;
   border-style: solid;
-  margin-top: 20px;
+  margin: auto;
+  width:900px;
+  height:900px;
 }
 
-.timer {
-  right: 100%;
-  vertical-align: top;
+/* .smiley {
   
+} */
+
+.timer {
+  text-align: right;
+  padding:20px;
+  font-size: '44sp';
 }
 
 .levels {
@@ -21,12 +27,24 @@ button {
 }
 
 table {
-  margin-top: 30px;
+  
+  margin-top: 20px;
+  background-color: white;
 }
 
 .board td {
-    width: 30px;
-    height: 30px;
-    text-align: center;
-    /* transition: 0.5s; */
+  width: 30px;
+  height: 30px;
+  text-align: center;
 }
+
+.board td:hover {
+    background-color: lightgrey;
+}
+
+.reveal {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  background-color: grey;
+  }
