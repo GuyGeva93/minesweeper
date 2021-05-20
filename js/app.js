@@ -15,6 +15,7 @@ var gSeconds;
 var gGameTimeInterval;
 var gSecondsLabel = document.querySelector('.timer');
 var gFirstClick = false;
+var gLives = 3;
 
 
 function initGame() {
@@ -104,12 +105,15 @@ function cellClicked(elCell, i, j) {
 
   //Waiting for the first click to start the game time
   if (!gFirstClick) {
+    addClasslist(elCell);
     gGameTimeInterval = setInterval(renderGameTime, 1000);
     gFirstClick = true;
     gBoard[i][j].isShown = true;
     setMinesOnBoard(i, j);
     expandShow(gBoard, i, j);
   }
+
+  if (gBoard[i][j].isShown && !gBoard[i][j].isMine) return; //Prevent from clicking on revealed cell
 
   if (!gBoard[i][j].isMine && !gBoard[i][j].isMarked && gBoard[i][j].minesAroundCount) {
     renderCell(elCell, gBoard[i][j].minesAroundCount);
@@ -127,7 +131,16 @@ function cellClicked(elCell, i, j) {
   }
   else if (gBoard[i][j].isMine) {
     renderCell(elCell, MINE);
-    gameOver(elCell);
+    debugger;
+    gLives--;
+    if (gLives) {
+      gBoard[i][j].isShown = true;
+      checkIfWin();
+      return;
+    }
+    else {
+      gameOver(elCell);
+    }
 
   } else if (gBoard[i][j].isMarked) return;
 
@@ -171,13 +184,17 @@ function checkIfWin() {
         countMines--; // if user has flagged a mine, the mine counter is decrease
 
         // If not all of the non mine cells were revealed, user didn't win
-      } else if (!(gBoard[i][j].isMine) && !(gBoard[i][j].isShown)) return;
+      } else if (!(gBoard[i][j].isMine) && !(gBoard[i][j].isShown)) {
+        return;
+      } else if (gBoard[i][j].isMine && gBoard[i][j].isShown) {
+        countMines--;
+      }
     }
   }
   if (!countMines) renderWin();
   else return;
 }
-//TODO
+
 function renderWin() {
   changeSmileyState(GAME_WIN);
 }
