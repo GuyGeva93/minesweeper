@@ -33,6 +33,10 @@ cursor: pointer;
   margin: 20px;
 }
 
+.lives {
+  text-align: center;
+}
+
 button {
   padding: 5px;
   margin: 10px;

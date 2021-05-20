@@ -24,6 +24,7 @@ function initGame() {
   changeSmileyState(GAME_ON);
   gBoard = buildBoard();
   renderBoard(gBoard);
+  renderLives();
 }
 
 //create game board
@@ -133,6 +134,7 @@ function cellClicked(elCell, i, j) {
     renderCell(elCell, MINE);
     debugger;
     gLives--;
+    renderLives();
     if (gLives) {
       gBoard[i][j].isShown = true;
       checkIfWin();
@@ -286,4 +288,9 @@ function resetGameTime() {
 
 function addClasslist(elCell) {
   elCell.classList.add('cellReveal');
+}
+
+function renderLives() {
+  var elSpan = document.querySelector('.lives span');
+  elSpan.innerText = gLives;
 }
