@@ -1,10 +1,9 @@
 //https://guygeva93.github.io/minesweeper/
 
-const MINE = '💥';
+const MINE = '💣';
 const FLAG = '🚩';
 const EMPTY = ' ';
 const GAME_ON = '😀';
-//const GAME_ON = '<img src="img/game_on.png"/>';
 const GAME_WIN = '😎';
 const GAME_LOSS = '😥';
 
@@ -15,7 +14,7 @@ var gSeconds;
 var gGameTimeInterval;
 var gSecondsLabel = document.querySelector('.timer');
 var gFirstClick = false;
-var gLives = 3;
+var gLives = 1; //Default is level 4 with 2 mines..
 
 
 function initGame() {
@@ -132,7 +131,6 @@ function cellClicked(elCell, i, j) {
   }
   else if (gBoard[i][j].isMine) {
     renderCell(elCell, MINE);
-    debugger;
     gLives--;
     renderLives();
     if (gLives) {
@@ -141,7 +139,11 @@ function cellClicked(elCell, i, j) {
       return;
     }
     else {
-      gameOver(elCell);
+      var elCell = document.querySelector(`.cell-${i}-${j}`);
+      elCell.classList.add('lost');
+      //elCell.classList.remove('.board td:hover');
+      elCell.classList.remove('hover');
+      gameOver();
     }
 
   } else if (gBoard[i][j].isMarked) return;
@@ -222,26 +224,24 @@ function changeSmileyState(smiley) {
   elSpan.innerText = smiley;
 }
 
-function gameOver(cell) {
-  //showAllMines(cell);
+function gameOver() {
+  showAllMines();
   changeSmileyState(GAME_LOSS);
   clearInterval(gGameTimeInterval);
   gGame = false;
 }
 
-//TODO
-
-// function showAllMines(cell) {
-//   for (var i = 0; i < gBoard.length; i++) {
-//     for (var j = 0; j < gBoard[0].length; j++) {
-//       if (gBoard[i][j].isMine && !gBoard[i][j].isShown) {
-//         gBoard[i][j].isShown = true;
-//         debugger;
-//         renderCell(cell, MINE);
-//       }
-//     }
-//   }
-// }
+function showAllMines() {
+  for (var i = 0; i < gBoard.length; i++) {
+    for (var j = 0; j < gBoard[0].length; j++) {
+      if (gBoard[i][j].isMine && !gBoard[i][j].isShown) {
+        gBoard[i][j].isShown = true;
+        var elCell = document.querySelector(`.cell-${i}-${j}`);
+        renderCell(elCell, MINE);
+      }
+    }
+  }
+}
 
 
 //Setting game level by user's click
@@ -257,6 +257,8 @@ function setLevel(btnId) {
     gFirstClick = false;
     initGame();
   } else if (btnId === 'level8') {
+    gLives = 3;
+    renderLives();
     gLevel.level = 8;
     gLevel.mines = 12;
     clearInterval(gGameTimeInterval);
@@ -264,6 +266,8 @@ function setLevel(btnId) {
     gFirstClick = false;
     initGame();
   } else if (btnId === 'level12') {
+    gLives = 3;
+    renderLives();
     gLevel.level = 12;
     gLevel.mines = 30;
     clearInterval(gGameTimeInterval);
@@ -278,6 +282,8 @@ function resetGame() {
   clearInterval(gGameTimeInterval);
   resetGameTime();
   gFirstClick = false;
+  gLives = 1;
+  renderLives();
   initGame();
 }
 

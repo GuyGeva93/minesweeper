@@ -1,76 +1,95 @@
-/* body {
-   border-width: 2px;
-  border-color: black;
-  border-style: solid; 
-   width:900px;
-  height:900px; 
-} */
 
-.container {
-  margin-top: 80px;
- display: grid;
+.background {
+ position: absolute;
+ display: block;
  align-items:center ;
  justify-content: center;
+ width:100%;
+ height:95%; 
+ background-image: url("../img/mokesh1.png");
+
 }
 
-/* .timer {
- background-color: lightcoral; 
- width:30px;
- text-align: center;
-} */
+
+.container {
+display: grid;
+align-items:center ;
+justify-content: center;
+position: relative;
+}
+
+.timer {
+ width:fit-content;
+ font-size: xx-large; 
+}
 
 .smiley {
   display: inline-block;
+  font-size: x-large;
 } 
 
 .smiley span {
 display:table;
-margin:0 auto;
+margin: auto;
 cursor: pointer;
 }
 
 .levels {
-  margin: 20px;
+  margin: 5px;
+  text-align: center;
 }
 
 .lives {
+  text-align: left;
+  font-family: cursive;
+  font-weight: bold;
+  font-size: 22px;
+  color:black;
   text-align: center;
+
 }
 
 button {
   padding: 5px;
   margin: 10px;
+  border-radius: 20px;
+  font-family: cursive;
+  font-size: 16px;
 }
 
 table {
-  margin-top: 20px;
   background-color: white;
-  border-radius: 4;
-  border-width: 3;
-  border: olive;
+  margin-top: 30px;
+  border-collapse: collapse;
+  border-style: solid;
+ border-width: 4px;
+ border-color: black;
 }
 
 .board td {
   width: 30px;
   height: 30px;
   text-align: center;
+  margin: 5px;
+  font-weight: bold;
 }
 
 .board td:hover {
-    background-color: lightgrey;
+  background-color: lightgrey;
 }
 
 .cellReveal {
-  background-color: grey;
+  background-color: rgb(190, 181, 181);
 }
 
-.reveal {
-  width: 30px;
-  height: 30px;
+  .footer {
   text-align: center;
-  background-color: grey;
+  font-size:25px;
+  font-family: cursive;
+}
+
+  .lost {
+  background-color: rgb(161, 6, 6);
   }
 
-  .footer {
-    text-align: center;
-  }
+
