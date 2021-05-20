@@ -56,6 +56,10 @@ table {
     background-color: lightgrey;
 }
 
+.cellReveal {
+  background-color: grey;
+}
+
 .reveal {
   width: 30px;
   height: 30px;
