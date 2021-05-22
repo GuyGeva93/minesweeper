@@ -15,12 +15,6 @@ var gGameTimeInterval;
 var gSecondsLabel = document.querySelector('.timer');
 var gFirstClick = false;
 var gLives = 1; //Default is level 4 with 2 mines..
-var gUndoCells = [{
-  i,
-  j,
-  type
-}];
-
 
 function initGame() {
   gGame = true;
@@ -88,6 +82,20 @@ function expandShow(board, cellI, cellJ) {
       }
     }
   }
+
+}
+
+//Bonus
+function multiExpandShow(board, idxI, idxJ) {
+  debugger;
+  for (var i = idxI - 1; i <= idxI + 1; i++) {
+    if (i < 0 || i >= board.length) continue;
+    for (var j = idxJ - 1; j <= idxJ + 1; j++) {
+      if (i === idxI && j === idxJ) continue;
+      if (j < 0 || j >= board[0].length) continue;
+      expandShow(gBoard, i, j);
+    }
+  }
 }
 
 function renderBoard(board) {
@@ -114,10 +122,16 @@ function cellClicked(elCell, i, j) {
   if (!gFirstClick) {
     addClasslist(elCell);
     gGameTimeInterval = setInterval(renderGameTime, 1000);
-    gFirstClick = true;
     gBoard[i][j].isShown = true;
     setMinesOnBoard(i, j);
-    expandShow(gBoard, i, j);
+
+    //If the first clicked cell has neighbors, only reveal him without check his negs
+    if (gBoard[i][j].minesAroundCount) {
+      gFirstClick = true;
+      renderCell(elCell, gBoard[i][j].minesAroundCount);
+      gBoard[i][j].isShown = true;
+    } else multiExpandShow(gBoard, i, j); //If the first clicked cell doesn't have negs, checking his negs
+
   }
 
 
@@ -134,6 +148,7 @@ function cellClicked(elCell, i, j) {
     renderCell(elCell, EMPTY);
     addClasslist(elCell);
     expandShow(gBoard, i, j);
+    multiExpandShow(gBoard, i, j);
     checkIfWin();
   }
   else if (gBoard[i][j].isMine) {
