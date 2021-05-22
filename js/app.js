@@ -15,6 +15,11 @@ var gGameTimeInterval;
 var gSecondsLabel = document.querySelector('.timer');
 var gFirstClick = false;
 var gLives = 1; //Default is level 4 with 2 mines..
+var gUndoCells = [{
+  i,
+  j,
+  type
+}];
 
 
 function initGame() {
@@ -73,7 +78,9 @@ function expandShow(board, cellI, cellJ) {
       if (!board[i][j].isMine) {
         var elCell = document.querySelector(`.cell-${i}-${j}`);
         gBoard[i][j].isShown = true;
-        if (gBoard[i][j].minesAroundCount) renderCell(elCell, gBoard[i][j].minesAroundCount);
+        if (gBoard[i][j].minesAroundCount) {
+          renderCell(elCell, gBoard[i][j].minesAroundCount);
+        }
         else {
           addClasslist(elCell);
           renderCell(elCell, EMPTY);
@@ -113,13 +120,13 @@ function cellClicked(elCell, i, j) {
     expandShow(gBoard, i, j);
   }
 
+
   if (gBoard[i][j].isShown && !gBoard[i][j].isMine) return; //Prevent from clicking on revealed cell
 
   if (!gBoard[i][j].isMine && !gBoard[i][j].isMarked && gBoard[i][j].minesAroundCount) {
     renderCell(elCell, gBoard[i][j].minesAroundCount);
     gBoard[i][j].isShown = true;
     addClasslist(elCell);
-    expandShow(gBoard, i, j);
     checkIfWin();
 
   } else if (!gBoard[i][j].minesAroundCount && !gBoard[i][j].isMine && !gBoard[i][j].isMarked) {
@@ -141,7 +148,6 @@ function cellClicked(elCell, i, j) {
     else {
       var elCell = document.querySelector(`.cell-${i}-${j}`);
       elCell.classList.add('lost');
-      //elCell.classList.remove('.board td:hover');
       elCell.classList.remove('hover');
       gameOver();
     }
@@ -200,7 +206,9 @@ function checkIfWin() {
 }
 
 function renderWin() {
+  clearInterval(gGameTimeInterval);
   changeSmileyState(GAME_WIN);
+
 }
 
 function onRightCellClicked(elCell, i, j) {
@@ -277,12 +285,13 @@ function setLevel(btnId) {
   }
 }
 
+
 //When pressing the emoji the game will restart
 function resetGame() {
   clearInterval(gGameTimeInterval);
   resetGameTime();
   gFirstClick = false;
-  gLives = 1;
+  gLives = (gBoard.length === 4) ? 1 : 3;
   renderLives();
   initGame();
 }
@@ -300,3 +309,7 @@ function renderLives() {
   var elSpan = document.querySelector('.lives span');
   elSpan.innerText = gLives;
 }
+
+// function addToUndoArr(i, j, type) {
+//   gUndoCells.push({ i, j, type });
+// }

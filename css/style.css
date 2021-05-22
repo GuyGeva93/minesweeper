@@ -7,6 +7,7 @@
  width:100%;
  height:95%; 
  background-image: url("../img/mokesh1.png");
+ opacity: 0.7;
 
 }
 
@@ -18,9 +19,24 @@ justify-content: center;
 position: relative;
 }
 
+.lives {
+  text-align: left;
+  font-family: cursive;
+  font-weight: bold;
+  font-size: 24px;
+  width: 70%;
+  float: left;
+}
+
 .timer {
+ font-family: cursive;
  width:fit-content;
- font-size: xx-large; 
+ font-size: 24px;
+ font-weight: bold;
+ width:30%;
+ text-align: center;
+ float: right;
+ 
 }
 
 .smiley {
@@ -39,15 +55,6 @@ cursor: pointer;
   text-align: center;
 }
 
-.lives {
-  text-align: left;
-  font-family: cursive;
-  font-weight: bold;
-  font-size: 22px;
-  color:black;
-  text-align: center;
-
-}
 
 button {
   padding: 5px;
@@ -79,7 +86,7 @@ table {
 }
 
 .cellReveal {
-  background-color: rgb(190, 181, 181);
+  background-color: rgb(221, 214, 214);
 }
 
   .footer {
